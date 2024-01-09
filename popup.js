@@ -143,22 +143,25 @@ function copyToClipboard(data) {
         data[i].checked = checkboxValues[i]
     }
 
+    const totalStudents = data.length;
+
     const presentStudents = data.filter(student => student.checked).length;
 
-    const absentStudents = data
-        .filter((student, index) => !student.checked)
-        .map((student, index) => `    ${index + 1}. ${student.NAME} (${student.MSSV})`)
-        .join('\n');
+    const absentStudents = data.filter(student => !student.checked);
 
-    // Create the text message
-    const message = `Dear Ms.Huyen, Ms.Tham, Mr.Thanh
+    const emailTemplate = `
+Dear Ms.Huyen, Ms.Tham, Mr.Thanh
 
 I am sending this email to report today's attendance:
 
-- Total members: ${data.length}
+- Total members: ${totalStudents}
+
 - Present: ${presentStudents}
-- Absent: 
-${absentStudents.length > 0 ? absentStudents : 0}
+
+- Absent:  
+  a. Authorized: 0
+  b. Unauthorized: ${absentStudents.length}
+    ${absentStudents.map((student, index) => `     ${index + 1}. ${student.NAME}`).join('\n')}
 
 Thank you for taking the time to read my email. If you have any problems, please contact me directly.
 
@@ -166,7 +169,7 @@ Thank you very much.
 `;
 
     const textarea = document.createElement('textarea');
-    textarea.value = message;
+    textarea.value = emailTemplate;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
