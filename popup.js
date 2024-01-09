@@ -134,7 +134,6 @@ function goToNextParticipant() {
         currentIndex = 0;
     }
 
-    // Display the next participant
     displayParticipantList(currentIndex);
 }
 
@@ -144,10 +143,8 @@ function copyToClipboard(data) {
         data[i].checked = checkboxValues[i]
     }
 
-    // Count the number of present students
     const presentStudents = data.filter(student => student.checked).length;
 
-    // Get the list of absent students
     const absentStudents = data
         .filter((student, index) => !student.checked)
         .map((student, index) => `    ${index + 1}. ${student.NAME} (${student.MSSV})`)
@@ -161,14 +158,13 @@ I am sending this email to report today's attendance:
 - Total members: ${data.length}
 - Present: ${presentStudents}
 - Absent: 
-${absentStudents.length > 0 ? absentStudents : 'None'}
+${absentStudents.length > 0 ? absentStudents : 0}
 
 Thank you for taking the time to read my email. If you have any problems, please contact me directly.
 
 Thank you very much.
 `;
 
-    // Create a textarea, set its value to the message, and copy it to the clipboard
     const textarea = document.createElement('textarea');
     textarea.value = message;
     document.body.appendChild(textarea);
