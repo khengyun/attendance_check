@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Điểm Danh Extension",
+    "name": "Attendance Check",
     "version": "1.0",
     "description": "Extension để điểm danh theo danh sách CSV.",
     "action": {
